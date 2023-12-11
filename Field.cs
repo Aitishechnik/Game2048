@@ -18,11 +18,6 @@ namespace Game_2048
         public Field()
         {
             InitializeField();
-
-
-            // перенести в UserInterfaceClass и добавить input (стрелки)
-            
-            //-------------------------------
         }
 
         public Tile GetRandomZeroTile()
@@ -50,6 +45,7 @@ namespace Game_2048
                 for (int j = 0; j < FIELD_LENGTH; j++)
                 {
                     _gameField[i, j] = new Tile(i, j, INITIAL_TILE_VALUE);
+                    UnlockAllTiles += _gameField[i, j].SetLock;
                     _tiles.Add(_gameField[i, j]);
                 }
             }
@@ -68,6 +64,13 @@ namespace Game_2048
                     tile.SetValue(tile.FirstTileRandomValue);
                 }
             }
+        }
+        
+        public event Action<bool> UnlockAllTiles;
+
+        public void UnlockAllTilesEventHandler()
+        {
+            UnlockAllTiles?.Invoke(false);
         }
     }
 }

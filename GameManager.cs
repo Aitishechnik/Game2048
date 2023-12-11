@@ -15,7 +15,7 @@ namespace Game_2048
 
         public GameManager()
         {
-            _gameLogicProcessor = new GameLogicProcessor(_field.GameField);
+            _gameLogicProcessor = new GameLogicProcessor(_field);
             _gameUI = new GameUI(_field.GameField);
             _input.EscapePressed += () => Environment.Exit(0); //Дописать логику игры и присвоить все методы (все стрелки), перенести весь визуал в GameUI
             _input.LeftPressed += _gameLogicProcessor.MoveLeft;

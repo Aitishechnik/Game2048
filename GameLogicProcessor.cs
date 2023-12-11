@@ -8,42 +8,47 @@ namespace Game_2048
 {
     public class GameLogicProcessor
     {
-        private Tile[,] _field;
+        private Field _field;
+        private Tile[,] _grid;
 
-        public GameLogicProcessor(Tile[,] field)
+        public GameLogicProcessor(Field field)
         {
             _field = field;
+            _grid = _field.GameField;
         }
 
-        public void MoveLeft()
+        public void MoveLeft() //Дописать логику. сделать метод универсальным для всех направлений
         {
-            for (int i = 0; i < _field.GetLength(0); i++)
+            for (int i = 0; i < _grid.GetLength(0); i++)
             {
-                bool isUnited = false;
-                for (int j = 1; j < _field.GetLength(1); j++)
+                for (int j = 1; j < _grid.GetLength(1); j++)
                 {
                     int index = j;
                     while (index > 0)
                     {
-                        if (_field[i, j].Value != 0)
+                        if (_grid[i, j].Value != 0)
                         {
                             index--;
-                            if (_field[i, index].Value == 0 ||
-                                _field[i, index].Value == _field[i, j].Value)
+                            if (index == 0 && _grid[i, index].Value == 0)
                             {
-                                if (!isUnited && _field[i, index].Value == _field[i, j].Value)
-                                {
-                                    _field[i, index].SetValue(_field[i, index].Value + _field[i, j].Value);
-                                    _field[i, j].SetValue(0);
-                                    isUnited = true;
-                                    break;
-                                }
+                                _grid[i, index].SetValue(_grid[i, j].Value);
+                                _grid[i, j].SetValue(0);
+                                break;
                             }
-                            if (index == 0)
+
+                            if(_grid[i, index].Value > 0 && _grid[i, index].Value != _grid[i, j].Value)
                             {
-                                var currentValue = _field[i, j].Value;
-                                _field[i, j].SetValue(0);
-                                _field[i, index + 1].SetValue(currentValue);
+                                var tempIndex = _grid[i, j].Value;
+                                _grid[i, j].SetValue(0);
+                                _grid[i, index + 1].SetValue(tempIndex);
+                                break;
+                            }
+
+                            if (!_grid[i, index].IsLocked && _grid[i,j].Value == _grid[i, index].Value)
+                            {
+                                _grid[i, j].SetValue(0);
+                                _grid[i, index].SetValue(_grid[i, index].Value * 2);
+                                _grid[i, index].SetLock(true);
                                 break;
                             }
                         }
@@ -51,6 +56,7 @@ namespace Game_2048
                             break;
                     }
                 }
+                _field.UnlockAllTilesEventHandler();
             }
         }
     }
