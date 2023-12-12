@@ -33,7 +33,8 @@ namespace Game_2048
                 return _tiles[index];
             }
 
-            throw new Exception("Заменить на инвок GameOver (event)");
+            GameOverCheckingEvent?.Invoke();
+            return null;
         }
 
         private void InitializeField()
@@ -56,7 +57,7 @@ namespace Game_2048
 
                 if (isFirstInitialied)
                 {
-                    tile.SetFirstValue();
+                    tile.SetRandomValue();
                 }
                 else
                 {
@@ -72,5 +73,23 @@ namespace Game_2048
         {
             UnlockAllTiles?.Invoke(false);
         }
+
+        public void AddRandomTile()
+        {
+            GetRandomZeroTile().SetRandomValue();
+        }
+
+        public int GetMaxScore()
+        {
+            var score = 0;
+            foreach (var tile in _tiles)
+            {
+                if(tile.Value > score)
+                    score = tile.Value;
+            }
+            return score;
+        }
+
+        public event Action GameOverCheckingEvent; 
     }
 }

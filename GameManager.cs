@@ -17,8 +17,13 @@ namespace Game_2048
         {
             _gameLogicProcessor = new GameLogicProcessor(_field);
             _gameUI = new GameUI(_field.GameField);
-            _input.EscapePressed += () => Environment.Exit(0); //Дописать логику игры и присвоить все методы (все стрелки), перенести весь визуал в GameUI
-            _input.LeftPressed += _gameLogicProcessor.MoveLeft;
+            _input.EscapePressed += () => Environment.Exit(0);
+            _input.PressedLeft += _gameLogicProcessor.MoveTilesLeft;
+            _input.PressedRight += _gameLogicProcessor.MoveTilesRight;
+            _input.PressedUp += _gameLogicProcessor.MoveTilesUp;
+            _input.PressedDown += _gameLogicProcessor.MoveTilesDown;
+            GameOverCheckingEvent += _gameLogicProcessor.CheckIfTurnIsAvailable;
+            _field.GameOverCheckingEvent += CheckGameOverStatus;
             RunGame();
         }
 
@@ -28,7 +33,25 @@ namespace Game_2048
             {
                 _gameUI.PrintField();
                 _input.ButtonIsPresed(Console.ReadKey());
+                if (_gameLogicProcessor.IsMoveExecuted)
+                    _field.AddRandomTile();
+                _gameLogicProcessor.SetIsMoveExecutedToFalse();
+                _field.GetRandomZeroTile();
             }
         }
+
+        private void CheckGameOverStatus()
+        {
+            if (GameOverCheckingEvent!= null && !GameOverCheckingEvent.Invoke(true))
+            {
+                _gameUI.PrintField();
+                Console.WriteLine();
+                Console.WriteLine($"Game is over! Your highest score is {_field.GetMaxScore()}");
+                Console.ReadKey(true);
+                Environment.Exit(0);
+            }
+        }
+
+        private event Predicate<bool> GameOverCheckingEvent;
     }
 }

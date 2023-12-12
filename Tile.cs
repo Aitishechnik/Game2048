@@ -46,7 +46,7 @@ namespace Game_2048
             _value = value;
         }
 
-        public void SetFirstValue()
+        public void SetRandomValue()
         {
             var index = Utilities.random.Next(0, 2);
             _value = index == 0 ? FIRST_TILE_RANDOM_VALUE : SECOND_TILE_RANDOM_VALUE;

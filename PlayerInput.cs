@@ -16,31 +16,31 @@ namespace Game_2048
             switch (input.Key)
             {
                 case UP:
-                UpPressed?.Invoke();
+                    PressedUp?.Invoke(false);
                 break;
 
                 case LEFT:
-                LeftPressed?.Invoke();
+                PressedLeft?.Invoke(false);
                 break;
 
                 case DOWN:
-                DownPressed?.Invoke();
+                    PressedDown?.Invoke(false);
                 break;
 
                 case RIGHT:
-                RightPressed?.Invoke();
+                    PressedRight?.Invoke(false);
                 break;
 
                 case ESCAPE:
-                EscapePressed?.Invoke();
+                    EscapePressed?.Invoke();
                 break;
             }
         }
 
-        public event Action UpPressed;
-        public event Action LeftPressed;
-        public event Action DownPressed;
-        public event Action RightPressed;
+        public event Action<bool> PressedLeft;
+        public event Action<bool> PressedRight;
+        public event Action<bool> PressedUp;
+        public event Action<bool> PressedDown;
         public event Action EscapePressed;
 
     }
