@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game_2048
 {
@@ -18,10 +14,7 @@ namespace Game_2048
             _gameLogicProcessor = new GameLogicProcessor(_field);
             _gameUI = new GameUI(_field.GameField);
             _input.EscapePressed += () => Environment.Exit(0);
-            _input.PressedLeft += _gameLogicProcessor.MoveTilesLeft;
-            _input.PressedRight += _gameLogicProcessor.MoveTilesRight;
-            _input.PressedUp += _gameLogicProcessor.MoveTilesUp;
-            _input.PressedDown += _gameLogicProcessor.MoveTilesDown;
+            _input.ButtonPressed += _gameLogicProcessor.MoveTiles;
             GameOverCheckingEvent += _gameLogicProcessor.CheckIfTurnIsAvailable;
             _field.GameOverCheckingEvent += CheckGameOverStatus;
             RunGame();

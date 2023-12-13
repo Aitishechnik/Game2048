@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game_2048
+﻿namespace Game_2048
 {
     public class Tile
     {
@@ -17,29 +11,6 @@ namespace Game_2048
 
         private int _value;
         public int Value => _value;
-
-        private int _x;
-        public int X => _x;
-
-        private int _y;
-        public int Y => _y;
-
-        public Tile(int Y, int X, int value)
-        {
-            _y = Y;
-            _x = X;
-            _value = value;
-        }
-
-        public void SetX(int value)
-        {
-            _x = value;
-        }
-
-        public void SetY(int value)
-        {
-            _y = value;
-        }
 
         public void SetValue(int value)
         {

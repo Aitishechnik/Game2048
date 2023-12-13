@@ -45,7 +45,7 @@ namespace Game_2048
             {
                 for (int j = 0; j < FIELD_LENGTH; j++)
                 {
-                    _gameField[i, j] = new Tile(i, j, INITIAL_TILE_VALUE);
+                    _gameField[i, j] = new Tile();
                     UnlockAllTiles += _gameField[i, j].SetLock;
                     _tiles.Add(_gameField[i, j]);
                 }

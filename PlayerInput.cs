@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 
 namespace Game_2048
 {
@@ -16,31 +15,28 @@ namespace Game_2048
             switch (input.Key)
             {
                 case UP:
-                    PressedUp?.Invoke(false);
-                break;
+                    ButtonPressed?.Invoke(UP,false);
+                    break;
 
                 case LEFT:
-                PressedLeft?.Invoke(false);
-                break;
+                    ButtonPressed?.Invoke(LEFT,false);
+                    break;
 
                 case DOWN:
-                    PressedDown?.Invoke(false);
-                break;
+                    ButtonPressed?.Invoke(DOWN,false);
+                    break;
 
                 case RIGHT:
-                    PressedRight?.Invoke(false);
-                break;
+                    ButtonPressed?.Invoke(RIGHT,false);
+                    break;
 
                 case ESCAPE:
                     EscapePressed?.Invoke();
-                break;
+                    break;
             }
         }
 
-        public event Action<bool> PressedLeft;
-        public event Action<bool> PressedRight;
-        public event Action<bool> PressedUp;
-        public event Action<bool> PressedDown;
+        public event Action<ConsoleKey, bool> ButtonPressed;
         public event Action EscapePressed;
 
     }

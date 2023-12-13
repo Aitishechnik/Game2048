@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Game_2048
+﻿namespace Game_2048
 {
     public class Program
     {
