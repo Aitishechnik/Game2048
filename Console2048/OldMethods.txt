@@ -1,0 +1,303 @@
+public void MoveTilesLeft(bool isCheckingTurn)
+{
+    for (int i = 0; i < _grid.GetLength(0); i++)
+    {
+        for (int j = 1; j < _grid.GetLength(1); j++)
+        {
+            int index = j;
+            while (index > 0)
+            {
+                if (_grid[i, j].Value != 0)
+                {
+                    index --;
+                    if (index == 0 && _grid[i, index].Value == 0)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[i, index].SetValue(_grid[i, j].Value);
+                            _grid[i, j].SetValue(0);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                            
+                        
+                    }
+
+                    if (_grid[i, index].Value > 0 && _grid[i, index].Value != _grid[i, j].Value)
+                    {
+                        if(_grid[i, j] != _grid[i, index + 1])
+                        {
+                            if (!isCheckingTurn)
+                            {
+                                var tempIndex = _grid[i, j].Value;
+                                _grid[i, j].SetValue(0);
+                                _grid[i, index + 1].SetValue(tempIndex);
+                                _isMoveExecuted = true;
+                            }
+                            else
+                            {
+                                _turnIsAvailable = true;
+                                return;
+                            }
+                        }                               
+                        break;
+                    }
+
+                    if (!_grid[i, index].IsLocked && _grid[i, j].Value == _grid[i, index].Value)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[i, j].SetValue(0);
+                            _grid[i, index].SetValue(_grid[i, index].Value * 2);
+                            _grid[i, index].SetLock(true);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+
+                    }
+                }
+                else
+                    break;
+            }
+        }
+        _field.UnlockAllTilesEventHandler();
+    }
+    if (isCheckingTurn)
+        _turnIsAvailable = false;
+}
+
+public void MoveTilesRight(bool isCheckingTurn)
+{
+    for (int i = 0; i < _grid.GetLength(0); i++)
+    {
+        for (int j = _grid.GetLength(1) - 1; j >= 0; j--)
+        {
+            int index = j;
+            while (index < _grid.GetLength(1) - 1)
+            {
+                if (_grid[i, j].Value != 0)
+                {
+                    index++;
+                    if (index == _grid.GetLength(1) - 1 && _grid[i, index].Value == 0)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[i, index].SetValue(_grid[i, j].Value);
+                            _grid[i, j].SetValue(0);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+
+                    if (_grid[i, index].Value > 0 && _grid[i, index].Value != _grid[i, j].Value)
+                    {
+                        if(_grid[i, j] != _grid[i, index - 1])
+                        {
+                            if (!isCheckingTurn)
+                            {
+                                var tempIndex = _grid[i, j].Value;
+                                _grid[i, j].SetValue(0);
+                                _grid[i, index - 1].SetValue(tempIndex);
+                                _isMoveExecuted = true;
+                            }
+                            else
+                            {
+                                _turnIsAvailable = true;
+                                return;
+                            }
+                        }                               
+                        break;
+                    }
+
+                    if (!_grid[i, index].IsLocked && _grid[i, j].Value == _grid[i, index].Value)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[i, j].SetValue(0);
+                            _grid[i, index].SetValue(_grid[i, index].Value * 2);
+                            _grid[i, index].SetLock(true);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+                }
+                else
+                    break;
+            }
+        }
+        _field.UnlockAllTilesEventHandler();
+    }
+    if (isCheckingTurn)
+        _turnIsAvailable = false;
+
+}
+
+public void MoveTilesUp(bool isCheckingTurn)
+{
+    for (int i = 0; i < _grid.GetLength(0); i++)
+    {
+        for (int j = 1; j < _grid.GetLength(1); j++)
+        {
+            int index = j;
+            while (index > 0)
+            {
+                if (_grid[j, i].Value != 0)
+                {
+                    index--;
+                    if (index == 0 && _grid[index, i].Value == 0)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[index, i].SetValue(_grid[j, i].Value);
+                            _grid[j, i].SetValue(0);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+
+                    if (_grid[index, i].Value > 0 && _grid[index, i].Value != _grid[j, i].Value)
+                    {
+                        if(_grid[j, i] != _grid[index + 1, i])
+                        {
+                            if (!isCheckingTurn)
+                            {
+                                var tempIndex = _grid[j, i].Value;
+                                _grid[j, i].SetValue(0);
+                                _grid[index + 1, i].SetValue(tempIndex);
+                                _isMoveExecuted = true;
+                            }
+                            else
+                            {
+                                _turnIsAvailable = true;
+                                return;
+                            }
+                        }                               
+                        break;
+                    }
+
+                    if (!_grid[index, i].IsLocked && _grid[j, i].Value == _grid[index, i].Value)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[j, i].SetValue(0);
+                            _grid[index, i].SetValue(_grid[index, i].Value * 2);
+                            _grid[index, i].SetLock(true);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+                }
+                else
+                    break;
+            }
+        }
+        _field.UnlockAllTilesEventHandler();
+    }
+    if(isCheckingTurn)
+        _turnIsAvailable = false;
+}
+
+public void MoveTilesDown(bool isCheckingTurn)
+{
+    for (int i = 0; i < _grid.GetLength(0); i++)
+    {
+        for (int j = _grid.GetLength(1) - 1; j >= 0; j--)
+        {
+            int index = j;
+            while (index < _grid.GetLength(1) - 1)
+            {
+                if (_grid[j, i].Value != 0)
+                {
+                    index++;
+                    if (index == _grid.GetLength(0) - 1 && _grid[index, i].Value == 0)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[index, i].SetValue(_grid[j, i].Value);
+                            _grid[j, i].SetValue(0);
+                            _isMoveExecuted = true;
+                            break;
+                        }                                
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+
+                    if (_grid[index, i].Value > 0 && _grid[index, i].Value != _grid[j, i].Value)
+                    {
+                        if(_grid[j, i] != _grid[index - 1, i])
+                        {
+                            if (!isCheckingTurn)
+                            {
+                                var tempIndex = _grid[j, i].Value;
+                                _grid[j, i].SetValue(0);
+                                _grid[index - 1, i].SetValue(tempIndex);
+                                _isMoveExecuted = true;
+                            }
+                            else
+                            {
+                                _turnIsAvailable = true;
+                                return;
+                            }
+                        }                               
+                        break;
+                    }
+
+                    if (!_grid[index, i].IsLocked && _grid[j, i].Value == _grid[index, i].Value)
+                    {
+                        if (!isCheckingTurn)
+                        {
+                            _grid[j, i].SetValue(0);
+                            _grid[index, i].SetValue(_grid[index, i].Value * 2);
+                            _grid[index, i].SetLock(true);
+                            _isMoveExecuted = true;
+                            break;
+                        }
+                        else
+                        {
+                            _turnIsAvailable = true;
+                            return;
+                        }
+                    }
+                }
+                else
+                    break;
+            }
+        }
+        _field.UnlockAllTilesEventHandler();
+    }
+    if(isCheckingTurn)
+        _turnIsAvailable = false;
+}
