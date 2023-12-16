@@ -6,9 +6,6 @@ public class TileFactory : MonoBehaviour
     public static TileFactory Instance { get; private set; }
 
     [SerializeField]
-    private GameObject _parent;
-
-    [SerializeField]
     private TileView _tilePrefab;
 
     [SerializeField]
@@ -24,9 +21,10 @@ public class TileFactory : MonoBehaviour
         }
         Instance = this;
     }
-    public void Create(int tileVale)
+    public TileView Create(int tileVale, Transform parent)
     {
-        var tile = Instantiate(_tilePrefab, _parent.transform);
+        var tile = Instantiate(_tilePrefab, parent);
         tile.SetValue(_tileDatasDict[tileVale]);
+        return tile;
     }
 }

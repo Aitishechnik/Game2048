@@ -5,11 +5,14 @@ public class GameView : MonoBehaviour
 {
     private GameManager _gameManager = new GameManager();
 
+    [SerializeField]
+    private Transform _gameFieldParent;
+
     private void Start()
     {
         foreach(var tile in _gameManager.Field.GameField)
         {
-            TileFactory.Instance.Create(tile.Value);
+            TileFactory.Instance.Create(tile.Value, _gameFieldParent);
         }
     }
 
