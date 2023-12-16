@@ -1,3 +1,4 @@
+using Game_2048;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,20 +12,17 @@ public class TileFactory : MonoBehaviour
     [SerializeField]
     private TilesConfig _tileConfig;
 
-    private Dictionary<int, TileData> _tileDatasDict = new Dictionary<int, TileData>();
+    
 
-    private void Start()
+    private void Awake()
     {
-        foreach(var data in _tileConfig.Tiles)
-        {
-            _tileDatasDict.Add(data.Value, data);
-        }
+        
         Instance = this;
     }
-    public TileView Create(int tileVale, Transform parent)
+    public TileView Create(Tile tile, Transform parent)
     {
-        var tile = Instantiate(_tilePrefab, parent);
-        tile.SetValue(_tileDatasDict[tileVale]);
-        return tile;
+        var tileView = Instantiate(_tilePrefab, parent);
+        tileView.SetValue(tile);
+        return tileView;
     }
 }

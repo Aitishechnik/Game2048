@@ -188,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b8648f80bd9634897911b36c690f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 549817824}
   _tilePrefab: {fileID: 4088038540854932904, guid: d6a13c47528de644ebd2b55ed67ebf1a, type: 3}
   _tileConfig: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
 --- !u!4 &310601645
@@ -539,6 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542626737}
   - component: {fileID: 1542626736}
+  - component: {fileID: 1542626738}
   m_Layer: 0
   m_Name: GameView
   m_TagString: Untagged
@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506096f632412724fb6bd20034e79df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fieldView: {fileID: 1542626738}
 --- !u!4 &1542626737
 Transform:
   m_ObjectHideFlags: 0
@@ -573,6 +574,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1542626738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542626735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a349ff3f0f7385f41a94d9c80f734834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
+  _gameFieldParent: {fileID: 549817825}
 --- !u!1 &1682347681
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,6 +638,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb3d50e3b93024a8af28ce3e2bbc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tilesConfig: {fileID: 0}
+  _tileValueTMPro: {fileID: 0}
   _image: {fileID: 1682347684}
 --- !u!114 &1682347684
 MonoBehaviour:
