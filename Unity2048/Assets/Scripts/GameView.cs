@@ -11,9 +11,9 @@ public class GameView : MonoBehaviour
     private void Start()
     {
         _fieldView.CreateView(_gameManager.Field);
+        _gameManager.GameOver += Application.Quit;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))

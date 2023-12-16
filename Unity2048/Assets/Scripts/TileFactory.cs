@@ -1,5 +1,4 @@
 using Game_2048;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TileFactory : MonoBehaviour

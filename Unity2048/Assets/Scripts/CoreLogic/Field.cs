@@ -9,6 +9,8 @@ namespace Game_2048
         private const int INITIAL_TILES_AMOUNT = 2;
         private const int FIELD_LENGTH = 4;
 
+        private List<Tile> _zeroValueTiles = new List<Tile>();
+
         private Tile[,] _gameField = new Tile[FIELD_LENGTH, FIELD_LENGTH];
         public Tile[,] GameField => _gameField;
 
@@ -18,19 +20,21 @@ namespace Game_2048
         public Field()
         {
             InitializeField();
-        }
+        }     
 
         public Tile GetRandomZeroTile()
         {
-            var randomIndex = Utilities.random.Next(0, FIELD_LENGTH * FIELD_LENGTH);
-
-            for (int j = 0; j < FIELD_LENGTH * FIELD_LENGTH; j++)
+            _zeroValueTiles.Clear();
+            foreach (var tile in _tiles)
             {
-                var index = (randomIndex + j) % (FIELD_LENGTH * FIELD_LENGTH);
-                if (_tiles[index].Value != INITIAL_TILE_VALUE)
-                    continue;
+                if (tile.Value == 0)
+                    _zeroValueTiles.Add(tile);
+            }
 
-                return _tiles[index];
+            if(_zeroValueTiles.Count > 0)
+            {
+                var randomTile = _zeroValueTiles[Utilities.random.Next(0, _zeroValueTiles.Count)];
+                return randomTile;
             }
 
             GameOverCheckingEvent?.Invoke();

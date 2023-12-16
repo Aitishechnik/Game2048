@@ -27,10 +27,7 @@ namespace Game_2048
         {
             if (!_gameLogicProcessor.CheckIfTurnIsAvailable(true))
             {
-                Console.WriteLine();
-                Console.WriteLine($"Game is over! Your highest score is {_field.GetMaxScore()}");
-                Console.ReadKey(true);
-                Environment.Exit(0);
+                GameOver?.Invoke();
             }
         }
 
@@ -53,5 +50,7 @@ namespace Game_2048
         {
             _gameLogicProcessor.MoveDown();
         }
+
+        public event Action GameOver;
     }
 }
