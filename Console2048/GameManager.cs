@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Game_2048
 {
@@ -14,8 +15,10 @@ namespace Game_2048
             _gameLogicProcessor = new GameLogicProcessor(_field);
             _gameUI = new GameUI(_field.GameField);
             _input.EscapePressed += () => Environment.Exit(0);
-            _input.ButtonPressed += _gameLogicProcessor.MoveTiles;
-            GameOverCheckingEvent += _gameLogicProcessor.CheckIfTurnIsAvailable;
+            _input.PressUp += _gameLogicProcessor.MoveUp;
+            _input.PressLeft += _gameLogicProcessor.MoveLeft;
+            _input.PressDown += _gameLogicProcessor.MoveDown;
+            _input.PressRight += _gameLogicProcessor.MoveRight;
             _field.GameOverCheckingEvent += CheckGameOverStatus;
             RunGame();
         }
@@ -35,7 +38,7 @@ namespace Game_2048
 
         private void CheckGameOverStatus()
         {
-            if (GameOverCheckingEvent!= null && !GameOverCheckingEvent.Invoke(true))
+            if (!_gameLogicProcessor.CheckIfTurnIsAvailable(true))
             {
                 _gameUI.PrintField();
                 Console.WriteLine();
@@ -44,7 +47,5 @@ namespace Game_2048
                 Environment.Exit(0);
             }
         }
-
-        private event Predicate<bool> GameOverCheckingEvent;
     }
 }

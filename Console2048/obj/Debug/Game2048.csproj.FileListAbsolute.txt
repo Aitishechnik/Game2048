@@ -5,3 +5,10 @@ C:\Users\Рустам\source\repos\Game2048\obj\Debug\Game2048.csproj.AssemblyRe
 C:\Users\Рустам\source\repos\Game2048\obj\Debug\Game2048.csproj.CoreCompileInputs.cache
 C:\Users\Рустам\source\repos\Game2048\obj\Debug\Game 2048.exe
 C:\Users\Рустам\source\repos\Game2048\obj\Debug\Game 2048.pdb
+C:\Users\Рустам\source\repos\Game2048\Console2048\obj\Debug\Game2048.csproj.AssemblyReference.cache
+C:\Users\Рустам\source\repos\Game2048\Console2048\obj\Debug\Game2048.csproj.CoreCompileInputs.cache
+C:\Users\Рустам\source\repos\Game2048\Console2048\obj\Debug\Game 2048.exe
+C:\Users\Рустам\source\repos\Game2048\Console2048\obj\Debug\Game 2048.pdb
+C:\Users\Рустам\source\repos\Game2048\Console2048\bin\Debug\Game 2048.exe.config
+C:\Users\Рустам\source\repos\Game2048\Console2048\bin\Debug\Game 2048.exe
+C:\Users\Рустам\source\repos\Game2048\Console2048\bin\Debug\Game 2048.pdb

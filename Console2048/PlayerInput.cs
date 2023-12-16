@@ -15,19 +15,19 @@ namespace Game_2048
             switch (input.Key)
             {
                 case UP:
-                    ButtonPressed?.Invoke(UP,false);
+                    PressUp?.Invoke();
                     break;
 
                 case LEFT:
-                    ButtonPressed?.Invoke(LEFT,false);
+                    PressLeft?.Invoke();
                     break;
 
                 case DOWN:
-                    ButtonPressed?.Invoke(DOWN,false);
+                    PressDown?.Invoke();
                     break;
 
                 case RIGHT:
-                    ButtonPressed?.Invoke(RIGHT,false);
+                    PressRight?.Invoke();
                     break;
 
                 case ESCAPE:
@@ -36,7 +36,11 @@ namespace Game_2048
             }
         }
 
-        public event Action<ConsoleKey, bool> ButtonPressed;
+        //public event Action<ConsoleKey, bool> ButtonPressed;
+        public event Action PressUp;
+        public event Action PressDown;
+        public event Action PressLeft;
+        public event Action PressRight;
         public event Action EscapePressed;
 
     }
