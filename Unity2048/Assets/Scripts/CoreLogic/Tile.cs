@@ -1,4 +1,6 @@
-﻿namespace Game_2048
+﻿using System;
+
+namespace Game_2048
 {
     public class Tile
     {
@@ -12,9 +14,11 @@
         private int _value;
         public int Value => _value;
 
-        public void SetValue(int value)
+        public void SetValue(int value, bool isSendVale = true)
         {
             _value = value;
+            if (isSendVale)
+                GetUpdatedTileValue?.Invoke(_value);
         }
 
         public void SetRandomValue()
@@ -27,5 +31,12 @@
         {
             _isLocked = isLocked;
         }
+
+        public void ClearEvent()
+        {
+            GetUpdatedTileValue = null;
+        }
+
+        public event Action<int> GetUpdatedTileValue;
     }
 }

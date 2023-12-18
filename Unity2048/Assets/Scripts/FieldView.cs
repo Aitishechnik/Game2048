@@ -7,22 +7,15 @@ public class FieldView : MonoBehaviour
     [SerializeField]
     private TilesConfig _config;
 
-    [SerializeField]
-    private Transform _gameFieldParent;
-
     private List<TileView> _tileViews = new List<TileView>();
-
-    private Field _field;
 
     public void CreateView(Field field)
     {
-        _field = field;
-
         Clear();
 
-        foreach (var tile in field.GameField)
+        foreach (var tile in field.Tiles)
         {
-            var tileView = TileFactory.Instance.Create(tile, _gameFieldParent);
+            var tileView = TileFactory.Instance.Create(tile);
             _tileViews.Add(tileView);
         }
     }
@@ -37,6 +30,9 @@ public class FieldView : MonoBehaviour
 
     private void Clear()
     {
-
+        foreach(var tileView in _tileViews)
+        {
+            tileView.ReturnToPool();
+        }
     }
 }

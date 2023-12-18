@@ -5,7 +5,9 @@ namespace Game_2048
 {
     public class Field
     {
-        private const int INITIAL_TILE_VALUE = 0;
+        private int _currentScore;
+        public int CurrecntScore => _currentScore;
+
         private const int INITIAL_TILES_AMOUNT = 2;
         private const int FIELD_LENGTH = 4;
 
@@ -50,6 +52,7 @@ namespace Game_2048
                 for (int j = 0; j < FIELD_LENGTH; j++)
                 {
                     _gameField[i, j] = new Tile();
+                    _gameField[i, j].GetUpdatedTileValue += UpdateScore;
                     UnlockAllTiles += _gameField[i, j].SetLock;
                     _tiles.Add(_gameField[i, j]);
                 }
@@ -66,7 +69,7 @@ namespace Game_2048
                 else
                 {
                     isFirstInitialied = true;
-                    tile.SetValue(tile.FirstTileRandomValue);
+                    tile.SetValue(tile.FirstTileRandomValue, false);
                 }
             }
         }
@@ -83,7 +86,12 @@ namespace Game_2048
             GetRandomZeroTile().SetRandomValue();
         }
 
-        public int GetMaxScore()
+        private void UpdateScore(int value)
+        {
+            _currentScore += value;
+        }
+
+        public int GetMaxTileValue()
         {
             var score = 0;
             foreach (var tile in _tiles)
@@ -92,6 +100,15 @@ namespace Game_2048
                     score = tile.Value;
             }
             return score;
+        }
+
+        public void ClearFieldEvents()
+        {
+            foreach(var tile in _tiles)
+            {
+                tile.ClearEvent();
+            }
+            UnlockAllTiles = null;
         }
 
         public event Action GameOverCheckingEvent; 

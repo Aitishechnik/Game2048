@@ -86,7 +86,7 @@ namespace Game_2048
             throw new Exception("Incorrect input");
         }
 
-        private Tile NormalizeArguments(Direction direction ,int i, int j, int index, bool isUsingIndex)
+        private Tile NormalizeArguments(Direction direction, int i, int j, int index, bool isUsingIndex)
         {
             if (isUsingIndex)
             {
@@ -151,7 +151,7 @@ namespace Game_2048
                             {
                                 if (!isCheckingTurn)
                                 {
-                                    NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, false).Value);
+                                    NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, false).Value, false);
                                     NormalizeArguments(direction, i, j, index, false).SetValue(0);
                                     _isMoveExecuted = true;
                                     break;
@@ -171,7 +171,7 @@ namespace Game_2048
                                     {
                                         var tempIndex = NormalizeArguments(direction, i, j, index, false).Value;
                                         NormalizeArguments(direction, i, j, index, false).SetValue(0);
-                                        NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex);
+                                        NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex, false);
                                         _isMoveExecuted = true;
                                     }
                                     else

@@ -15,6 +15,11 @@ namespace Game_2048
             NextTurn();
         }
 
+        public int GetCurrentScore()
+        {
+            return _field.CurrecntScore;
+        }
+
         public void NextTurn()
         {
             if (_gameLogicProcessor.IsMoveExecuted)
@@ -29,6 +34,12 @@ namespace Game_2048
             {
                 GameOver?.Invoke();
             }
+        }
+
+        public void ClearAllEvents()
+        {
+            _field.ClearFieldEvents();
+            GameOver = null;
         }
 
         public void MoveLeft()
