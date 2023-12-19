@@ -44,14 +44,14 @@ public class GameView : MonoBehaviour
         _scoreTable.text = $"Score: {_gameManager.GetCurrentScore()}";
     }
 
-    private void GameIsLost() // Заменить удаление и отписку на "чистку"
+    private void GameIsLost()
     {
         _lossScreen?.SetActive(true);
         LossScreenText();
         _gameIsOn = false;
     }
 
-    private void ResetGame() // Исправить ошибки, доделать архитектуру pool->factory->gameView
+    private void ResetGame()
     {
         _lossScreen.SetActive(false);
         _gameManager.ClearAllEvents();
