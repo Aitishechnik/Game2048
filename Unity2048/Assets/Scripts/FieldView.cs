@@ -34,5 +34,6 @@ public class FieldView : MonoBehaviour
         {
             tileView.ReturnToPool();
         }
+        _tileViews.Clear();
     }
 }
