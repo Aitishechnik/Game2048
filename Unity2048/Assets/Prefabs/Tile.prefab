@@ -318,8 +318,8 @@ RectTransform:
   - {fileID: 4676563127614104962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -335,6 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb3d50e3b93024a8af28ce3e2bbc1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tile:
+    X: 0
+    Y: 0
   _tilesConfig: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
   _tileValueTMPro: {fileID: 7704884276934684074}
   _image: {fileID: 1943030259772499484}
