@@ -15,7 +15,7 @@ public class FieldView : MonoBehaviour
 
         foreach (var tile in field.Tiles)
         {
-            var tileView = TileFactory.Instance.Create(tile);
+            var tileView = TileFactory.Instance.Create(tile, transform);
             _tileViews.Add(tileView);
         }
     }

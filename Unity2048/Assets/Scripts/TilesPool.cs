@@ -48,6 +48,7 @@ public class TilesPool
 
     public void Return(TileView tileView)
     {
+        tileView.transform.SetParent(_objectsTransform);
         _tilesView.Add(tileView);
         tileView.gameObject.SetActive(false);
     }

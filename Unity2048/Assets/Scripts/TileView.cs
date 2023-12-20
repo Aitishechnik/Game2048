@@ -5,7 +5,9 @@ using TMPro;
 
 public class TileView : MonoBehaviour
 {
+    [SerializeField]
     private Tile _tile;
+    public Tile Tile => _tile;
     private TilesPool _tilesPool;
 
     [SerializeField]
@@ -46,5 +48,6 @@ public class TileView : MonoBehaviour
     {
         _tile.SetValue(0);
         _tilesPool.Return(this);
+        _tile = null;
     }
 }

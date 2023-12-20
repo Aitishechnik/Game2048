@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 4088038540854932904, guid: d6a13c47528de644ebd2b55ed67ebf1a, type: 3}
   _tileConfig: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
-  _tilesPatrent: {fileID: 549817825}
+  _tilesPatrent: {fileID: 310601645}
 --- !u!4 &310601645
 Transform:
   m_ObjectHideFlags: 0
@@ -443,6 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 549817825}
   - component: {fileID: 549817826}
+  - component: {fileID: 549817827}
   m_Layer: 5
   m_Name: Field
   m_TagString: Untagged
@@ -493,6 +494,19 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &549817827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549817824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a349ff3f0f7385f41a94d9c80f734834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
 --- !u!1 &552442987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1542626737}
   - component: {fileID: 1542626736}
-  - component: {fileID: 1542626738}
   m_Layer: 0
   m_Name: GameView
   m_TagString: Untagged
@@ -1313,7 +1326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoreTable: {fileID: 65779181}
   _gameLossResult: {fileID: 919845195}
-  _fieldView: {fileID: 1542626738}
+  _fieldView: {fileID: 549817827}
   _gameScreen: {fileID: 78011827}
   _lossScreen: {fileID: 1900971874}
   _gameRestartButton: {fileID: 768080313}
@@ -1332,20 +1345,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1542626738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542626735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a349ff3f0f7385f41a94d9c80f734834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: 7bdb493894ade164ba38aab304a1344f, type: 2}
-  _gameFieldParent: {fileID: 549817825}
 --- !u!1 &1892218840
 GameObject:
   m_ObjectHideFlags: 0

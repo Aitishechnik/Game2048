@@ -54,6 +54,10 @@ namespace Game_2048
                     _gameField[i, j] = new Tile();
                     _gameField[i, j].GetUpdatedTileValue += UpdateScore;
                     UnlockAllTiles += _gameField[i, j].SetLock;
+                    //---------------------
+                    _gameField[i, j].X = j;
+                    _gameField[i, j].Y = i;
+                    //---------------------
                     _tiles.Add(_gameField[i, j]);
                 }
             }

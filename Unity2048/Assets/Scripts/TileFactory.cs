@@ -23,9 +23,11 @@ public class TileFactory : MonoBehaviour
         _tilesPool = new TilesPool(TILES_VIEW_AMOUNT, _tilePrefab, _tilesPatrent);
         Instance = this;
     }
-    public TileView Create(Tile tile)
+
+    public TileView Create(Tile tile, Transform parent)
     {
         var tileView = _tilesPool.GetTileView();
+        tileView.transform.SetParent(parent);
         tileView.SetValue(tile);
         tileView.SetTilesPool(_tilesPool);
         return tileView;
