@@ -15,11 +15,18 @@ public class FlyTilesController : MonoBehaviour
 
     private IEnumerator FlyRoutine(TileView from, TileView to, float time)
     {
+        if (from == null)
+            throw new System.Exception("From is null");
+        if(to == null)
+            throw new System.Exception("To is null");
+
         float elapsedTime = 0f;
 
         var tile = TileFactory.Instance.Create(from.Tile, transform);
         tile.transform.GetChild(0).gameObject.SetActive(false);
-        var sorting = tile.AddComponent<SortingGroup>();
+        var sorting = tile.GetComponent<SortingGroup>();
+        if(sorting == null)
+            sorting = tile.AddComponent<SortingGroup>();
         sorting.sortAtRoot = true;
 
         while (elapsedTime < time)
@@ -32,7 +39,7 @@ public class FlyTilesController : MonoBehaviour
         }
 
         sorting.sortAtRoot = false;
-        Destroy(sorting);
+        //Destroy(sorting);
 
         tile.transform.position = to.transform.position;
 

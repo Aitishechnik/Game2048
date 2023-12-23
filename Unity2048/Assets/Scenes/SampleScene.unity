@@ -1380,6 +1380,7 @@ MonoBehaviour:
   _gameScreen: {fileID: 78011827}
   _lossScreen: {fileID: 1900971874}
   _gameRestartButton: {fileID: 768080313}
+  _flyTilesController: {fileID: 503510027}
 --- !u!4 &1542626737
 Transform:
   m_ObjectHideFlags: 0

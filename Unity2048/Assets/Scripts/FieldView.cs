@@ -11,6 +11,18 @@ public class FieldView : MonoBehaviour
     private List<TileView> _tileViews = new List<TileView>();
 
     private int[,] _fromToCoords;
+
+    private Dictionary<Tile, TileView> _tileViewDict = new Dictionary<Tile, TileView>();
+
+    public TileView GetTileView(Tile tile)
+    {
+        if(_tileViewDict.TryGetValue(tile, out var view))
+        {
+            return view;
+        }
+
+        return null;
+    }
     public void CreateView(Field field)
     {
         Clear();
@@ -21,6 +33,7 @@ public class FieldView : MonoBehaviour
         {
             var tileView = TileFactory.Instance.Create(tile, transform);
             _tileViews.Add(tileView);
+            _tileViewDict.Add(tile, tileView);
         }
     }
 
@@ -63,5 +76,6 @@ public class FieldView : MonoBehaviour
             tileView.ReturnToPool();
         }
         _tileViews.Clear();
+        _tileViewDict.Clear();
     }
 }
