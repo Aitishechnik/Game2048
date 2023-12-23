@@ -153,6 +153,7 @@ namespace Game_2048
                                 {
                                     NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, false).Value, false);
                                     NormalizeArguments(direction, i, j, index, false).SetValue(0);
+                                    FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index, true)); // Эвент на передачу тайлов
                                     _isMoveExecuted = true;
                                     break;
                                 }
@@ -172,6 +173,7 @@ namespace Game_2048
                                         var tempIndex = NormalizeArguments(direction, i, j, index, false).Value;
                                         NormalizeArguments(direction, i, j, index, false).SetValue(0);
                                         NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex, false);
+                                        FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index + (directionIndex * -1), true)); // Эвент на передачу тайлов
                                         _isMoveExecuted = true;
                                     }
                                     else
@@ -189,6 +191,7 @@ namespace Game_2048
                                 {
                                     NormalizeArguments(direction, i, j, index, false).SetValue(0);
                                     NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, true).Value * 2);
+                                    FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index, true));
                                     NormalizeArguments(direction, i, j, index, true).SetLock(true);
                                     _isMoveExecuted = true;
                                     break;
@@ -229,5 +232,7 @@ namespace Game_2048
 
             return false;
         }
+
+        public event Action<Tile, Tile> FromToTilesCoordinates;
     }
 }

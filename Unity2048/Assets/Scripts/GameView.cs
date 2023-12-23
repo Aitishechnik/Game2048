@@ -1,4 +1,5 @@
 using Game_2048;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,12 @@ public class GameView : MonoBehaviour
     [SerializeField]
     private Button _gameRestartButton;
 
+    [SerializeField]
+    private FlyTilesController _flyTilesController;
+
+    private Dictionary<Tile, Tile> _animationCoordinates = new Dictionary<Tile, Tile>();
+    public Dictionary<Tile, Tile> AnimationCoordinates => _animationCoordinates;
+
     private bool _gameIsOn = true;
 
     private void Start()
@@ -37,6 +44,15 @@ public class GameView : MonoBehaviour
         UpdateScoreTable();
         
         _gameManager.GameOver += GameIsLost;
+        _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
+    }
+
+    private void HandleAnimationCoordinates(Tile from, Tile to)
+    {
+        _animationCoordinates.Add(from, to); 
+        //—делать метод передающий соответсующе TileView в FlyController
+        //ƒобавить механику "фриза" следующего хода до окончани€ всех анимаций
+        //дописать класс FlyController
     }
 
     private void UpdateScoreTable()
@@ -73,6 +89,7 @@ public class GameView : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 _gameManager.MoveLeft();
+                _fieldView.SyncField();
                 _gameManager.NextTurn();
                 _fieldView.SyncField();
                 UpdateScoreTable();
@@ -81,6 +98,7 @@ public class GameView : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 _gameManager.MoveRight();
+                _fieldView.SyncField();
                 _gameManager.NextTurn();
                 _fieldView.SyncField();
                 UpdateScoreTable();
@@ -89,6 +107,7 @@ public class GameView : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 _gameManager.MoveUp();
+                _fieldView.SyncField();
                 _gameManager.NextTurn();
                 _fieldView.SyncField();
                 UpdateScoreTable();
@@ -97,6 +116,7 @@ public class GameView : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 _gameManager.MoveDown();
+                _fieldView.SyncField();
                 _gameManager.NextTurn();
                 _fieldView.SyncField();
                 UpdateScoreTable();

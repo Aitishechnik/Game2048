@@ -2,6 +2,7 @@ using Game_2048;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class TileView : MonoBehaviour
 {
@@ -26,8 +27,21 @@ public class TileView : MonoBehaviour
         _tilesPool = tilesPool;
     }
 
+    public void SetAnimationCoordinates(int[,] coords)
+    {
+        if (ThisTileData != null && ThisTileData.Value != _tile.Value)
+        {
+            coords[_tile.Y, _tile.X] = ThisTileData.Value > _tile.Value ? -1 : 1;
+        }
+    }
+
     public void SetValue(Tile tile)
     {
+        if (ThisTileData != null && ThisTileData.Value != tile.Value)
+        {
+            //написать логику сбора инфы о каждом тайле с передачей в fieldView через event или новое поле в fieldView
+            //попробовать добавить координаты в TileView для определения перехода каждого тайла 
+        }
         _tile = tile;
         ThisTileData = _tilesConfig.GetTileData(_tile.Value);
         if (ThisTileData.Value > 0)

@@ -14,7 +14,7 @@ public class TileFactory : MonoBehaviour
     private TilesConfig _tileConfig;
 
     [SerializeField]
-    private Transform _tilesPatrent; // где лучше разместить трансформ field?
+    private Transform _tilesPatrent;
 
     private TilesPool _tilesPool;
 
