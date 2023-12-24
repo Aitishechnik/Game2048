@@ -37,6 +37,8 @@ public class GameView : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 30;
+
         _gameScreen.SetActive(true);
         _lossScreen.SetActive(false);
         _gameRestartButton.onClick.AddListener(ResetGame);
@@ -54,6 +56,9 @@ public class GameView : MonoBehaviour
         //—делать метод передающий соответсующе TileView в FlyController
         //ƒобавить механику "фриза" следующего хода до окончани€ всех анимаций
         //дописать класс FlyController
+        //ƒобавить все новые евенты в ClearAllEvents()
+
+        //TODO: ѕопробовать не присваивать созданным дл€ анимации TileView - Tile (должен быть null, ориентироватьс€ на этот фактор)
     }
 
     private void UpdateScoreTable()
@@ -91,20 +96,19 @@ public class GameView : MonoBehaviour
 
     private IEnumerator FlightAnimation()
     {
-        //_fieldView.SyncField();
-        
+        _gameIsOn = false;
         foreach (var tile in _animationCoordinates)
         {
             var from = _fieldView.GetTileView(tile.Key);
             var to = _fieldView.GetTileView(tile.Value);
-            _flyTilesController.Fly(from, to, 5f);
-            //from.Tile.SetValue(0);
-            //from.Sync();
+
+            _flyTilesController.Fly(from, to, 0.2f);           
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.3f);
         _gameManager.NextTurn();
         _fieldView.SyncField();
         UpdateScoreTable();
+        _gameIsOn = true;
     }
 
     private void Update()
@@ -115,40 +119,24 @@ public class GameView : MonoBehaviour
             {
                 _gameManager.MoveLeft();
                 DoFlyingTiles();
-                /*_fieldView.SyncField();
-                _gameManager.NextTurn();
-                _fieldView.SyncField();
-                UpdateScoreTable();*/
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 _gameManager.MoveRight();
                 DoFlyingTiles();
-                /*_fieldView.SyncField();
-                _gameManager.NextTurn();
-                _fieldView.SyncField();
-                UpdateScoreTable();*/
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 _gameManager.MoveUp();
                 DoFlyingTiles();
-                /*_fieldView.SyncField();
-                _gameManager.NextTurn();
-                _fieldView.SyncField();
-                UpdateScoreTable();*/
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 _gameManager.MoveDown();
                 DoFlyingTiles();
-                /*_fieldView.SyncField();
-                _gameManager.NextTurn();
-                _fieldView.SyncField();
-                UpdateScoreTable();*/
             }
         }       
     }

@@ -164,26 +164,7 @@ namespace Game_2048
                                 }
                             }
 
-                            if (NormalizeArguments(direction, i, j, index, true).Value > 0 && NormalizeArguments(direction, i, j, index, true).Value != NormalizeArguments(direction, i, j, index, false).Value)
-                            {
-                                if(NormalizeArguments(direction, i, j, index + (directionIndex * -1), true) != NormalizeArguments(direction, i, j, index, false))
-                                {
-                                    if (!isCheckingTurn)
-                                    {
-                                        var tempIndex = NormalizeArguments(direction, i, j, index, false).Value;
-                                        NormalizeArguments(direction, i, j, index, false).SetValue(0);
-                                        NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex, false);
-                                        FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index + (directionIndex * -1), true)); // Эвент на передачу тайлов
-                                        _isMoveExecuted = true;
-                                    }
-                                    else
-                                    {
-                                        _turnIsAvailable = true;
-                                        return;
-                                    }
-                                }                              
-                                break;
-                            }
+                            
 
                             if (!NormalizeArguments(direction, i, j, index, true).IsLocked && NormalizeArguments(direction, i, j, index, false).Value == NormalizeArguments(direction, i, j, index, true).Value)
                             {
@@ -201,6 +182,27 @@ namespace Game_2048
                                     _turnIsAvailable = true;
                                     return;
                                 }
+                            }
+
+                            if (NormalizeArguments(direction, i, j, index, true).Value > 0/* && NormalizeArguments(direction, i, j, index, true).Value != NormalizeArguments(direction, i, j, index, false).Value*/)
+                            {
+                                if (NormalizeArguments(direction, i, j, index + (directionIndex * -1), true) != NormalizeArguments(direction, i, j, index, false))
+                                {
+                                    if (!isCheckingTurn)
+                                    {
+                                        var tempIndex = NormalizeArguments(direction, i, j, index, false).Value;
+                                        NormalizeArguments(direction, i, j, index, false).SetValue(0);
+                                        NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex, false);
+                                        FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index + (directionIndex * -1), true)); // Эвент на передачу тайлов
+                                        _isMoveExecuted = true;
+                                    }
+                                    else
+                                    {
+                                        _turnIsAvailable = true;
+                                        return;
+                                    }
+                                }
+                                break;
                             }
                         }
                         else

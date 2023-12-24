@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game_2048;
+using System;
 
 public class TilesPool
 {
@@ -18,31 +19,26 @@ public class TilesPool
 
         for (int i = 0; i < amount; i++)
         {
-            var tileView = GameObject.Instantiate(_tileViewPrefab, _objectsTransform);
-            _tilesView.Add(tileView);
-            tileView.gameObject.SetActive(false);
+            Create();
         }        
     }
 
     public TileView GetTileView()
     {
-        if (_tilesView.Count > 0)
-        {
-            var tileView = _tilesView[_tilesView.Count - 1];
-            _tilesView.Remove(tileView);
-            tileView.gameObject.SetActive(true);
-            return tileView;
-        }
-        else
-        {
-            return Create();
-        }
+        if(_tilesView.Count == 0)
+            Create();
+
+        var tileView = _tilesView[_tilesView.Count - 1];
+        _tilesView.Remove(tileView);
+        tileView.gameObject.SetActive(true);
+        return tileView;
     }
 
     private TileView Create()
     {
         var newTileView = GameObject.Instantiate(_tileViewPrefab, _objectsTransform);
         _tilesView.Add(newTileView);
+        newTileView.gameObject.SetActive(false);
         return newTileView;
     }
 

@@ -22,8 +22,13 @@ public class FlyTilesController : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        var tile = TileFactory.Instance.Create(from.Tile, transform);
+        var tile = TileFactory.Instance.Create(from.ThisTileData, transform);
+
+        //from.Sync();
+        from.transform.GetChild(1).gameObject.SetActive(false);
+
         tile.transform.GetChild(0).gameObject.SetActive(false);
+
         var sorting = tile.GetComponent<SortingGroup>();
         if(sorting == null)
             sorting = tile.AddComponent<SortingGroup>();
@@ -39,11 +44,14 @@ public class FlyTilesController : MonoBehaviour
         }
 
         sorting.sortAtRoot = false;
-        //Destroy(sorting);
 
         tile.transform.position = to.transform.position;
 
         tile.ReturnToPool();
+
+        from.transform.GetChild(1).gameObject.SetActive(true);
+        from.Sync();
+        to.Sync();
         from.Tile.SetValue(from.ThisTileData.Value);
     }
 }

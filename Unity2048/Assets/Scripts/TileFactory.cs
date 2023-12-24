@@ -13,14 +13,11 @@ public class TileFactory : MonoBehaviour
     [SerializeField]
     private TilesConfig _tileConfig;
 
-    [SerializeField]
-    private Transform _tilesPatrent;
-
     private TilesPool _tilesPool;
 
     private void Awake()
     {
-        _tilesPool = new TilesPool(TILES_VIEW_AMOUNT, _tilePrefab, _tilesPatrent);
+        _tilesPool = new TilesPool(TILES_VIEW_AMOUNT, _tilePrefab, transform);
         Instance = this;
     }
 
@@ -29,6 +26,16 @@ public class TileFactory : MonoBehaviour
         var tileView = _tilesPool.GetTileView();
         tileView.transform.SetParent(parent);
         tileView.SetValue(tile);
+        tileView.SetTilesPool(_tilesPool);
+        return tileView;
+    }
+
+    public TileView Create(TileData tileData, Transform parent)
+    {
+        var tileView = _tilesPool.GetTileView();
+        tileView.NullifyTile();
+        tileView.transform.SetParent(parent);
+        tileView.SetValue(tileData);
         tileView.SetTilesPool(_tilesPool);
         return tileView;
     }

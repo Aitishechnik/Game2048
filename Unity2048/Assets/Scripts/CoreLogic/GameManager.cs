@@ -13,7 +13,6 @@ namespace Game_2048
             _gameLogicProcessor = new GameLogicProcessor(_field);
             _field.GameOverCheckingEvent += CheckGameOverStatus;
             _gameLogicProcessor.FromToTilesCoordinates += SendAnimationTilesCoordinates;
-            NextTurn();
         }
 
         public void SendAnimationTilesCoordinates(Tile from, Tile to)

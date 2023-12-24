@@ -27,21 +27,14 @@ public class TileView : MonoBehaviour
         _tilesPool = tilesPool;
     }
 
-    public void SetAnimationCoordinates(int[,] coords)
+    public void NullifyTile()
     {
-        if (ThisTileData != null && ThisTileData.Value != _tile.Value)
-        {
-            coords[_tile.Y, _tile.X] = ThisTileData.Value > _tile.Value ? -1 : 1;
-        }
+        _tile = null;
+        ThisTileData = null;
     }
 
     public void SetValue(Tile tile)
     {
-        if (ThisTileData != null && ThisTileData.Value != tile.Value)
-        {
-            //написать логику сбора инфы о каждом тайле с передачей в fieldView через event или новое поле в fieldView
-            //попробовать добавить координаты в TileView для определения перехода каждого тайла 
-        }
         _tile = tile;
         ThisTileData = _tilesConfig.GetTileData(_tile.Value);
         if (ThisTileData.Value > 0)
@@ -53,6 +46,16 @@ public class TileView : MonoBehaviour
         _image.gameObject.SetActive(ThisTileData.Value > 0);
     }
 
+    public void SetValue(TileData tileData)
+    {
+        if(tileData.Value > 0)
+        {
+            _image.color = tileData.Color;
+            _tileValueTMPro.text = tileData.Value.ToString();
+        }
+        _image.gameObject.SetActive(tileData.Value > 0);
+    }
+
     public void Sync()
     {
         SetValue(_tile);
@@ -60,8 +63,6 @@ public class TileView : MonoBehaviour
 
     public void ReturnToPool()
     {
-        _tile.SetValue(0);
-        _tilesPool.Return(this);
-        _tile = null;
+        _tilesPool?.Return(this);        
     }
 }
