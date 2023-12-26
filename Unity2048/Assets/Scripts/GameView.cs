@@ -79,6 +79,7 @@ public class GameView : MonoBehaviour
         _gameManager.GameOver += GameIsLost;
         _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
         _fieldView.CreateView(_gameManager.Field);
+        UpdateScoreTable();
         _gameIsOn = true;
     }
 
