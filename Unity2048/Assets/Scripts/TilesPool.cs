@@ -7,6 +7,7 @@ using System;
 public class TilesPool
 {
     private List<TileView> _tilesView = new List<TileView>();
+    public int TilesAmount => _tilesView.Count;
 
     private TileView _tileViewPrefab;
 

@@ -35,9 +35,13 @@ public class GameView : MonoBehaviour
 
     private bool _gameIsOn = true;
 
+    private float _nextTurnTime;
+    private const float TURN_TRANSITION_DELTA = 1.2f;
+
     private void Start()
     {
         Application.targetFrameRate = 30;
+        _nextTurnTime = _flyTilesController.TileTransitionTime * TURN_TRANSITION_DELTA;
 
         _gameScreen.SetActive(true);
         _lossScreen.SetActive(false);
@@ -53,12 +57,6 @@ public class GameView : MonoBehaviour
     private void HandleAnimationCoordinates(Tile from, Tile to)
     {
         _animationCoordinates.Add(from, to);
-        //—делать метод передающий соответсующе TileView в FlyController
-        //ƒобавить механику "фриза" следующего хода до окончани€ всех анимаций
-        //дописать класс FlyController
-        //ƒобавить все новые евенты в ClearAllEvents()
-
-        //TODO: ѕопробовать не присваивать созданным дл€ анимации TileView - Tile (должен быть null, ориентироватьс€ на этот фактор)
     }
 
     private void UpdateScoreTable()
@@ -79,6 +77,7 @@ public class GameView : MonoBehaviour
         _gameManager.ClearAllEvents();
         _gameManager = new GameManager();
         _gameManager.GameOver += GameIsLost;
+        _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
         _fieldView.CreateView(_gameManager.Field);
         _gameIsOn = true;
     }
@@ -102,9 +101,9 @@ public class GameView : MonoBehaviour
             var from = _fieldView.GetTileView(tile.Key);
             var to = _fieldView.GetTileView(tile.Value);
 
-            _flyTilesController.Fly(from, to, 0.2f);           
+            _flyTilesController.Fly(from, to);           
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(_nextTurnTime);
         _gameManager.NextTurn();
         _fieldView.SyncField();
         UpdateScoreTable();

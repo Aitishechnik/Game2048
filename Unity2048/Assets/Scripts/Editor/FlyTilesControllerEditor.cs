@@ -16,7 +16,7 @@ public class FlyTilesControllerEditor : Editor
         if (GUILayout.Button("Fly"))
         {
             var flyTiles = target as FlyTilesController;
-            flyTiles.Fly(from,to,time);
+            flyTiles.Fly(from,to);
         }
     }
 }

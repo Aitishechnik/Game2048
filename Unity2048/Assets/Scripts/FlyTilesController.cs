@@ -8,12 +8,15 @@ public class FlyTilesController : MonoBehaviour
     [SerializeField]
     private TileFactory _tileFactory;
 
-    public void Fly(TileView from, TileView to, float time)
+    private const float TILE_TRIANSITION_TIME = 0.2f;
+    public float TileTransitionTime => TILE_TRIANSITION_TIME;
+
+    public void Fly(TileView from, TileView to)
     {
-        StartCoroutine(FlyRoutine(from, to, time));
+        StartCoroutine(FlyRoutine(from, to, TILE_TRIANSITION_TIME));
     }
 
-    private IEnumerator FlyRoutine(TileView from, TileView to, float time)
+    private IEnumerator FlyRoutine(TileView from, TileView to, float TILE_TRIANSITION_TIME)
     {
         if (from == null)
             throw new System.Exception("From is null");
@@ -24,26 +27,22 @@ public class FlyTilesController : MonoBehaviour
 
         var tile = TileFactory.Instance.Create(from.ThisTileData, transform);
 
-        //from.Sync();
         from.transform.GetChild(1).gameObject.SetActive(false);
 
         tile.transform.GetChild(0).gameObject.SetActive(false);
 
-        var sorting = tile.GetComponent<SortingGroup>();
-        if(sorting == null)
-            sorting = tile.AddComponent<SortingGroup>();
-        sorting.sortAtRoot = true;
+        tile.SortingGroup.sortAtRoot = true;
 
-        while (elapsedTime < time)
+        while (elapsedTime < TILE_TRIANSITION_TIME)
         {
-            float t = elapsedTime / time;
+            float t = elapsedTime / TILE_TRIANSITION_TIME;
             tile.transform.position = Vector3.Lerp(from.transform.position, to.transform.position, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        sorting.sortAtRoot = false;
+        tile.SortingGroup.sortAtRoot = false;
 
         tile.transform.position = to.transform.position;
 

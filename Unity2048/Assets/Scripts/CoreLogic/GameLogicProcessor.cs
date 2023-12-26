@@ -235,6 +235,11 @@ namespace Game_2048
             return false;
         }
 
+        internal void ClearProcessorEvents()
+        {
+            FromToTilesCoordinates = null;
+        }
+
         public event Action<Tile, Tile> FromToTilesCoordinates;
     }
 }

@@ -5,8 +5,6 @@ public class TileFactory : MonoBehaviour
 {
     public static TileFactory Instance { get; private set; }
 
-    private const int TILES_VIEW_AMOUNT = 16;
-
     [SerializeField]
     private TileView _tilePrefab;
 
@@ -17,8 +15,15 @@ public class TileFactory : MonoBehaviour
 
     private void Awake()
     {
-        _tilesPool = new TilesPool(TILES_VIEW_AMOUNT, _tilePrefab, transform);
         Instance = this;
+    }
+
+    public void InitializePool(int boardLength)
+    {
+        if(_tilesPool == null || (_tilesPool?.TilesAmount != boardLength * boardLength))
+        {
+            _tilesPool = new TilesPool(boardLength * boardLength, _tilePrefab, transform);
+        }
     }
 
     public TileView Create(Tile tile, Transform parent)

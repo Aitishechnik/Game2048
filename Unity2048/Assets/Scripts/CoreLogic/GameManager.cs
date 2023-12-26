@@ -44,6 +44,8 @@ namespace Game_2048
         public void ClearAllEvents()
         {
             _field.ClearFieldEvents();
+            _gameLogicProcessor.ClearProcessorEvents();
+            FromToTilesCoordinates = null;
             GameOver = null;
         }
 

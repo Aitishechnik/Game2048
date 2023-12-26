@@ -2,7 +2,6 @@
 
 namespace Game_2048
 {
-    //[Serializable]
     public class Tile
     {
         //------------

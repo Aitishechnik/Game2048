@@ -23,6 +23,7 @@ public class FieldView : MonoBehaviour
     }
     public void CreateView(Field field)
     {
+        TileFactory.Instance.InitializePool(field.GameField.GetLength(0));
         Clear();
 
         foreach (var tile in field.Tiles)

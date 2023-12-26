@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Rendering;
 
 public class TileView : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class TileView : MonoBehaviour
 
     [SerializeField]
     private Image _image;
+
+    [SerializeField]
+    private SortingGroup _sortingGroup;
+    public SortingGroup SortingGroup => _sortingGroup;
 
     public void SetTilesPool(TilesPool tilesPool)
     {
