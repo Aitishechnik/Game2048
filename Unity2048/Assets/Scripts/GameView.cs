@@ -10,6 +10,9 @@ public class GameView : MonoBehaviour
     private GameManager _gameManager = new GameManager();
 
     [SerializeField]
+    private RectTransform _grid;
+
+    [SerializeField]
     private TextMeshProUGUI _scoreTable;
 
     [SerializeField]
@@ -34,10 +37,13 @@ public class GameView : MonoBehaviour
     public Dictionary<Tile, Tile> AnimationCoordinates => _animationCoordinates;
 
     private bool _gameIsOn = true;
+    private bool _isOnTurn = true;
 
     private float _nextTurnTime;
-    private const float TURN_TRANSITION_DELTA = 1.2f;
+    private const float TURN_TRANSITION_DELTA = 1.1f;
 
+    private Touch _touch;
+    private Vector2 _touchPosition;
     private void Start()
     {
         Application.targetFrameRate = 30;
@@ -113,8 +119,61 @@ public class GameView : MonoBehaviour
 
     private void Update()
     {
-        if (_gameIsOn)
+        if (Input.touchCount > 0)
         {
+            _touch = Input.GetTouch(0);
+            _touchPosition = Camera.main.ScreenToWorldPoint(_touch.position);
+
+            if (_touch.position.x >= _grid.anchorMin.x * Screen.width &&
+                _touch.position.x <= _grid.anchorMax.x * Screen.width &&
+                _touch.position.y >= _grid.anchorMin.y * Screen.height &&
+                _touch.position.y <= _grid.anchorMax.y * Screen.height)
+            {
+                switch (_touch.phase)
+                {
+                    case TouchPhase.Began:
+                        _isOnTurn = true;
+                        break;
+
+                    case TouchPhase.Moved:
+                        if (_gameIsOn && _isOnTurn)
+                        {
+                            if (_touch.deltaPosition.x < 0 && Mathf.Abs(_touch.deltaPosition.x) > Mathf.Abs(_touch.deltaPosition.y))
+                            {
+                                _gameManager.MoveLeft();
+                                DoFlyingTiles();
+                                _isOnTurn = false;
+                            }
+                            if (_touch.deltaPosition.x > 0 && Mathf.Abs(_touch.deltaPosition.x) > Mathf.Abs(_touch.deltaPosition.y))
+                            {
+                                _gameManager.MoveRight();
+                                DoFlyingTiles();
+                                _isOnTurn = false;
+                            }
+                            if (_touch.deltaPosition.y < 0 && Mathf.Abs(_touch.deltaPosition.y) > Mathf.Abs(_touch.deltaPosition.x))
+                            {
+                                _gameManager.MoveDown();
+                                DoFlyingTiles();
+                                _isOnTurn = false;
+                            }
+                            if (_touch.deltaPosition.y > 0 && Mathf.Abs(_touch.deltaPosition.y) > Mathf.Abs(_touch.deltaPosition.x))
+                            {
+                                _gameManager.MoveUp();
+                                DoFlyingTiles();
+                                _isOnTurn = false;
+                            }
+                        }
+                        break;
+
+                    case TouchPhase.Ended:
+                        break;
+                }
+            }
+        }
+        #region Arrow Controller
+        /*if (_gameIsOn)
+        {
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 _gameManager.MoveLeft();
@@ -138,6 +197,8 @@ public class GameView : MonoBehaviour
                 _gameManager.MoveDown();
                 DoFlyingTiles();
             }
-        }       
+
+        }*/
+        #endregion
     }
 }
