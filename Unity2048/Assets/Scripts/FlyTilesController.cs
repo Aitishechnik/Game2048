@@ -8,7 +8,7 @@ public class FlyTilesController : MonoBehaviour
     [SerializeField]
     private TileFactory _tileFactory;
 
-    private const float TILE_TRIANSITION_TIME = 0.2f;
+    private const float TILE_TRIANSITION_TIME = 0.15f;
     public float TileTransitionTime => TILE_TRIANSITION_TIME;
 
     public void Fly(TileView from, TileView to)
