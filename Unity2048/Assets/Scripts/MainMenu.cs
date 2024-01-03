@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     private GameObject _gameScreen;
 
     [SerializeField]
-    private GameObject _lossScreen;
+    private GameObject _endGameScreen;
 
     [SerializeField]
     private GameObject _mainMenuScreen;
@@ -26,7 +26,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _startButtonText;
 
-    private Coroutine _flickerButtonTextRoutine;
+    [SerializeField]
+    private TextMeshProUGUI _bestScoreTableText;
 
     private void Awake()
     {
@@ -57,9 +58,10 @@ public class MainMenu : MonoBehaviour
     {
         _mainMenuScreen.SetActive(true);
         _gameScreen.gameObject.SetActive(false);
-        _lossScreen.gameObject.SetActive(false);
+        _endGameScreen.gameObject.SetActive(false);
         _start.onClick.AddListener(_gameView.StartGame);
         StartCoroutine(FlickerButtonText());
+        BestScoreAnnouce();
         //_resetRecord.onClick.AddListener();
     }
 
@@ -71,9 +73,9 @@ public class MainMenu : MonoBehaviour
         _mainMenuScreen.SetActive(false);
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void BestScoreAnnouce()
     {
-        
+        _bestScoreTableText.text = SaveSystem.Instance.SaveData().BestScore.ToString();
     }
+
 }

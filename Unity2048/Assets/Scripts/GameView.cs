@@ -91,8 +91,19 @@ public class GameView : MonoBehaviour
 
     private void GameIsLost()
     {
-        _endGameMenu.StartEndMenu($"You've lost :( Score: {_gameManager.GetCurrentScore()} Tile: {_gameManager.Field.GetMaxTileValue()}");
+        _endGameMenu.StartEndMenu($"You've lost :(\n Score: {_gameManager.GetCurrentScore()}\n Tile: {_gameManager.Field.GetMaxTileValue()}");
         _gameIsOn = false;
+    }
+
+    private void GameIsWon()
+    {
+        _endGameMenu.StartEndMenu($"You've won!!! \n Score: {_gameManager.GetCurrentScore()}\n Tile: {_gameManager.Field.GetMaxTileValue()}");
+        _gameIsOn = false;
+    }
+
+    private bool IsWinCondition()
+    {
+        return _gameManager.Field.GetMaxTileValue() >= _fieldView.BiggestTilesValue;
     }
 
     private void ResetGame()
@@ -105,11 +116,6 @@ public class GameView : MonoBehaviour
         _fieldView.CreateView(_gameManager.Field);
         UpdateScoreTable();
         _gameIsOn = true;
-    }
-
-    private void LossScreenText()
-    {
-        _gameLossResult.text = $"You've lost :( Score: {_gameManager.GetCurrentScore()} Tile: {_gameManager.Field.GetMaxTileValue()}";
     }
 
     private void DoFlyingTiles()
@@ -183,6 +189,11 @@ public class GameView : MonoBehaviour
                             _gameManager.MoveUp();
                             DoFlyingTiles();
                             _isOnTurn = false;
+                        }
+
+                        if (IsWinCondition())
+                        {
+                            GameIsWon();
                         }
                     }
                     break;

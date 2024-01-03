@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FieldView : MonoBehaviour
 {
+    public int BiggestTilesValue { get; private set; }
+
     [SerializeField]
     private TilesConfig _config;
 
@@ -23,6 +25,12 @@ public class FieldView : MonoBehaviour
     }
     public void CreateView(Field field)
     {
+        foreach(var data in _config.TileDatas)
+        {
+            if(data.Value > BiggestTilesValue)
+                BiggestTilesValue = data.Value;
+        }
+
         TileFactory.Instance.InitializePool(field.GameField.GetLength(0));
         Clear();
 

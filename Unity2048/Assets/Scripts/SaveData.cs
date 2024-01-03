@@ -1,13 +1,19 @@
+using Game_2048;
 using System;
 
 [Serializable]
 public class SaveData
-{
+{    
     public int CurrentScore { get; private set; }
 
-    public int[,] CurrentField {  get; private set; }
+    public Field CurrentField {  get; private set; }
 
     public int BestScore { get; private set; }
+
+    public SaveData()
+    {
+        CurrentField = new Field();
+    }
 
     public void SetBestScore(int newBestScore)
     {
@@ -19,7 +25,7 @@ public class SaveData
         CurrentScore = currentScore;
     }
 
-    public void SetCurrentField(int[,] field)
+    public void SetCurrentField(Field field)
     {
         CurrentField = field;
     }

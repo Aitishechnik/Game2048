@@ -184,7 +184,7 @@ namespace Game_2048
                                 }
                             }
 
-                            if (NormalizeArguments(direction, i, j, index, true).Value > 0/* && NormalizeArguments(direction, i, j, index, true).Value != NormalizeArguments(direction, i, j, index, false).Value*/)
+                            if (NormalizeArguments(direction, i, j, index, true).Value > 0)
                             {
                                 if (NormalizeArguments(direction, i, j, index + (directionIndex * -1), true) != NormalizeArguments(direction, i, j, index, false))
                                 {
