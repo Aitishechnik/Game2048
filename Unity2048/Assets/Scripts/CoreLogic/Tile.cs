@@ -4,10 +4,6 @@ namespace Game_2048
 {
     public class Tile
     {
-        //------------
-        public int X;
-        public int Y;
-        //------------
         private bool _isLocked;
         public bool IsLocked => _isLocked;
 

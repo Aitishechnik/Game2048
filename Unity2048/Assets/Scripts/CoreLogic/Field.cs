@@ -19,9 +19,9 @@ namespace Game_2048
         private List<Tile> _tiles = new List<Tile>();
         public List<Tile> Tiles => _tiles;
 
-        public Field()
+        public Field(int[,] fieldValues = null)
         {
-            InitializeField();
+            InitializeField(fieldValues);
         }     
 
         public Tile GetRandomZeroTile()
@@ -43,9 +43,9 @@ namespace Game_2048
             return null;
         }
 
-        private void InitializeField()
+        private void InitializeField(int[,] fieldValues = null)
         {
-            bool isFirstInitialied = false;
+            bool isFirstInitialized = false;
 
             for (int i = 0; i < FIELD_LENGTH; i++)
             {
@@ -54,27 +54,37 @@ namespace Game_2048
                     _gameField[i, j] = new Tile();
                     _gameField[i, j].GetUpdatedTileValue += UpdateScore;
                     UnlockAllTiles += _gameField[i, j].SetLock;
-                    //---------------------
-                    _gameField[i, j].X = j;
-                    _gameField[i, j].Y = i;
-                    //---------------------
+
                     _tiles.Add(_gameField[i, j]);
                 }
             }
-
-            for(int i = 0; i < INITIAL_TILES_AMOUNT; i++)
+            if(fieldValues == null)
             {
-                var tile = GetRandomZeroTile();
+                for (int i = 0; i < INITIAL_TILES_AMOUNT; i++)
+                {
+                    var tile = GetRandomZeroTile();
 
-                if (isFirstInitialied)
-                {
-                    tile.SetRandomValue();
+                    if (isFirstInitialized)
+                    {
+                        tile.SetRandomValue();
+                    }
+                    else
+                    {
+                        isFirstInitialized = true;
+                        tile.SetValue(tile.FirstTileRandomValue, false);
+                    }
                 }
-                else
+            }
+            else
+            {
+                for(int i = 0; i < _gameField.GetLength(0); i++)
                 {
-                    isFirstInitialied = true;
-                    tile.SetValue(tile.FirstTileRandomValue, false);
+                    for (int j = 0; j <  GameField.GetLength(1); j++)
+                    {
+                        _gameField[i, j].SetValue(fieldValues[i, j], false);
+                    }
                 }
+                _currentScore = SaveSystem.Instance.GameData.CurrentScore;
             }
         }
         

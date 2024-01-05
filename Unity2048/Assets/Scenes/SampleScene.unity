@@ -324,7 +324,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1748,14 +1748,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6666667, g: 0.49019608, b: 0.8235294, a: 1}
+  m_Color: {r: 0.6784314, g: 0.5372549, b: 0.7647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed0e56cc6dd842c4881ac2f384508e1f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a08939621bf9af341a9dc073c785bfd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2949,7 +2949,7 @@ MonoBehaviour:
   _fieldView: {fileID: 549817827}
   _gameScreen: {fileID: 78011827}
   _endGameMenu: {fileID: 739131319}
-  _gameRestartButton: {fileID: 768080313}
+  _gameRestartButton: {fileID: 1494458922}
   _flyTilesController: {fileID: 503510027}
   _mainMenu: {fileID: 1182436904}
   _returnToMainMenuButton: {fileID: 1473427138}
@@ -3102,7 +3102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1900971875
 RectTransform:
   m_ObjectHideFlags: 0

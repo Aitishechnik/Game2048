@@ -29,6 +29,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _bestScoreTableText;
 
+    private Coroutine _flickerButtonRoutin;
+
     private void Awake()
     {
         StartMainMenu();
@@ -36,15 +38,16 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator FlickerButtonText()
     {
+        _startButtonText.color = new Color(_startButtonText.color.r, _startButtonText.color.g, _startButtonText.color.b, 1);
         bool isFading = true;
         while (true)
         {
-            if(_startButtonText.color.a >= 1)
+            if(_startButtonText.color.a >= 1f)
             {
                 isFading = true;
             }
 
-            if(_startButtonText.color.a <= 0.3)
+            if(_startButtonText.color.a < 0.3f)
             {
                 isFading = false;
             }
@@ -60,22 +63,23 @@ public class MainMenu : MonoBehaviour
         _gameScreen.gameObject.SetActive(false);
         _endGameScreen.gameObject.SetActive(false);
         _start.onClick.AddListener(_gameView.StartGame);
-        StartCoroutine(FlickerButtonText());
+        if (_flickerButtonRoutin == null)
+            _flickerButtonRoutin = StartCoroutine(FlickerButtonText());
         BestScoreAnnouce();
-        //_resetRecord.onClick.AddListener();
+        _resetRecord.onClick.AddListener(SaveSystem.Instance.NullifyBestScore);
+        _resetRecord.onClick.AddListener(BestScoreAnnouce);
     }
 
     public void TurnOffMainMenuScreen()
     {
         _start.onClick.RemoveAllListeners();
         _resetRecord.onClick.RemoveAllListeners();
-        StopAllCoroutines();
         _mainMenuScreen.SetActive(false);
     }
 
     private void BestScoreAnnouce()
     {
-        _bestScoreTableText.text = SaveSystem.Instance.SaveData().BestScore.ToString();
+        _bestScoreTableText.text = "Best Score: " + SaveSystem.Instance.GameData.BestScore.ToString();
     }
 
 }

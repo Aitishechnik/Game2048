@@ -4,30 +4,23 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveSystem 
-    
-    //Внедрить систему Save/Load
-    
-    //Настроить кнопку Reset Record в главном меню
-    //Настроить в игре кнопку Restart с окошком выбора (да/нет для подстраховки)
-    //Настроить табло с BestRecord в главном меню
-
 {
     private string _saveDirectory = "/save.dat";
     private SaveSystem() { }
 
     private static SaveSystem _instance;
 
-    private SaveData _saveData;
+    private SaveData _gameData;
 
-    public SaveData SaveData()
+    public SaveData GameData
     {
-        
-        if (_saveData == null)
-            return _saveData = new SaveData();
+        get
+        {
+            if (_gameData == null)
+                _gameData = Load();
 
-        Load();
-
-        return _saveData;
+            return _gameData;
+        }
     }
 
     public static SaveSystem Instance
@@ -36,53 +29,57 @@ public class SaveSystem
         {
             if (_instance == null)
                 _instance = new SaveSystem();
+
             return _instance;
         }
     }
-
-    public void UpdateBestScore(int newBestScore)
-    {
-        _saveData.SetBestScore(newBestScore);
-        Save();
-    }
-
-    public void UpdateCurrentGameState(Field field, int curentScore)
-    {
-        _saveData.SetCurrentField(field);
-        _saveData.SetCurrentScore(curentScore);
-        Save();
-    }
-
-    private void Save()
+    public void Save(SaveData saveData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + _saveDirectory;
-        FileStream stream = new FileStream(path, FileMode.Create);
 
-        if(_saveData == null)
-            _saveData = new SaveData();
-
-        formatter.Serialize(stream, _saveData);
-        stream.Close();
+        using (FileStream stream = new FileStream(path, FileMode.Create))
+        {
+            formatter.Serialize(stream, saveData);
+            stream.Close();
+        }           
     }
 
-    public void Load()
+    public SaveData Load()
     {
         string path = Application.persistentDataPath + _saveDirectory;
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
+            SaveData data;
 
-            var data = formatter.Deserialize(stream) as SaveData;
-            stream.Close();
-
-            _saveData = data;
+            using (FileStream stream = new FileStream(path, FileMode.Open))
+            {
+                data = formatter.Deserialize(stream) as SaveData;
+                stream.Close();
+                
+            }
+            return data;
         }
         else
         {
             Debug.Log("Path error, no save date");
-            Save();
+            var data = new SaveData();
+            Save(data);
+            return data;
         }
+    }
+
+    public void NullifyCurrentGameData()
+    {
+        _gameData.SetCurrentScore(0);
+        _gameData.SetCurrentField(null);
+        Save(SaveSystem.Instance.GameData);
+    }
+
+    public void NullifyBestScore()
+    {
+        _gameData.SetBestScore(0);
+        NullifyCurrentGameData();
     }
 }

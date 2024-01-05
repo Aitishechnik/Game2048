@@ -1,7 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class FlyTilesController : MonoBehaviour
 {
@@ -51,6 +49,6 @@ public class FlyTilesController : MonoBehaviour
         from.transform.GetChild(1).gameObject.SetActive(true);
         from.Sync();
         to.Sync();
-        from.Tile.SetValue(from.ThisTileData.Value);
+        from.Tile.SetValue(from.ThisTileData.Value, false);
     }
 }

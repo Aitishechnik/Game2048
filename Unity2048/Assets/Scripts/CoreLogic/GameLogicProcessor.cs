@@ -152,8 +152,8 @@ namespace Game_2048
                                 if (!isCheckingTurn)
                                 {
                                     NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, false).Value, false);
-                                    NormalizeArguments(direction, i, j, index, false).SetValue(0);
-                                    FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index, true)); // Эвент на передачу тайлов
+                                    NormalizeArguments(direction, i, j, index, false).SetValue(0, false);
+                                    FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index, true));
                                     _isMoveExecuted = true;
                                     break;
                                 }
@@ -170,7 +170,7 @@ namespace Game_2048
                             {
                                 if (!isCheckingTurn)
                                 {
-                                    NormalizeArguments(direction, i, j, index, false).SetValue(0);
+                                    NormalizeArguments(direction, i, j, index, false).SetValue(0, false);
                                     NormalizeArguments(direction, i, j, index, true).SetValue(NormalizeArguments(direction, i, j, index, true).Value * 2);
                                     FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index, true));
                                     NormalizeArguments(direction, i, j, index, true).SetLock(true);
@@ -191,9 +191,9 @@ namespace Game_2048
                                     if (!isCheckingTurn)
                                     {
                                         var tempIndex = NormalizeArguments(direction, i, j, index, false).Value;
-                                        NormalizeArguments(direction, i, j, index, false).SetValue(0);
+                                        NormalizeArguments(direction, i, j, index, false).SetValue(0, false);
                                         NormalizeArguments(direction, i, j, index + (directionIndex * -1), true).SetValue(tempIndex, false);
-                                        FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index + (directionIndex * -1), true)); // Эвент на передачу тайлов
+                                        FromToTilesCoordinates?.Invoke(NormalizeArguments(direction, i, j, index, false), NormalizeArguments(direction, i, j, index + (directionIndex * -1), true));
                                         _isMoveExecuted = true;
                                     }
                                     else

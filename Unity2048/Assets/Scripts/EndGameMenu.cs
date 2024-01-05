@@ -26,11 +26,13 @@ public class EndGameMenu : MonoBehaviour
     {
         _gameOverMenuScreen.SetActive(true);
         _announceTable.text = announce;
-        _resetGame.onClick.AddListener(_gameView.StartGame);
+        _resetGame.onClick.AddListener(_gameView.ResetGame);
         _resetGame.onClick.AddListener(TurnOffEndGameScreen);
-        _returnToMainMenu.onClick.AddListener(_mainMenu.StartMainMenu);
+        _returnToMainMenu.onClick.AddListener(SaveSystem.Instance.NullifyCurrentGameData);      
         _returnToMainMenu.onClick.AddListener(_gameView.TurnOffGameViewScreen);
         _returnToMainMenu.onClick.AddListener(TurnOffEndGameScreen);
+        _returnToMainMenu.onClick.AddListener(_mainMenu.StartMainMenu);
+        
     }
 
     public void TurnOffEndGameScreen()

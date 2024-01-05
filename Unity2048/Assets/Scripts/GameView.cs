@@ -62,7 +62,7 @@ public class GameView : MonoBehaviour
     }
     public void StartGame()
     {
-        _gameManager = new GameManager();
+        _gameManager = new GameManager(SaveSystem.Instance.GameData.CurrentField);
         _nextTurnTime = _flyTilesController.TileTransitionTime * TURN_TRANSITION_DELTA;
 
         _gameScreen.SetActive(true);
@@ -77,6 +77,19 @@ public class GameView : MonoBehaviour
         _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
         _returnToMainMenuButton.onClick.AddListener(_mainMenu.StartMainMenu);
         _returnToMainMenuButton.onClick.AddListener(TurnOffGameViewScreen);
+    }
+
+    public void ResetGame()
+    {
+        _endGameMenu.TurnOffEndGameScreen();
+        _mainMenu.TurnOffMainMenuScreen();
+        _gameManager.ClearAllEvents();
+        _gameManager = new GameManager();
+        _gameManager.GameOver += GameIsLost;
+        _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
+        _fieldView.CreateView(_gameManager.Field);
+        UpdateScoreTable();
+        _gameIsOn = true;
     }
 
     private void HandleAnimationCoordinates(Tile from, Tile to)
@@ -106,17 +119,7 @@ public class GameView : MonoBehaviour
         return _gameManager.Field.GetMaxTileValue() >= _fieldView.BiggestTilesValue;
     }
 
-    private void ResetGame()
-    {
-        _endGameMenu.TurnOffEndGameScreen();
-        _gameManager.ClearAllEvents();
-        _gameManager = new GameManager();
-        _gameManager.GameOver += GameIsLost;
-        _gameManager.FromToTilesCoordinates += HandleAnimationCoordinates;
-        _fieldView.CreateView(_gameManager.Field);
-        UpdateScoreTable();
-        _gameIsOn = true;
-    }
+    
 
     private void DoFlyingTiles()
     {
@@ -150,6 +153,19 @@ public class GameView : MonoBehaviour
         }
         return false;
     }
+
+    private void UpdateFieldAndScores()
+    {
+        SaveSystem.Instance.GameData.SetCurrentField(_gameManager.GetFieldValuesMatrix());
+        SaveSystem.Instance.GameData.SetCurrentScore(_gameManager.GetCurrentScore());
+        if(_gameManager.GetCurrentScore() > SaveSystem.Instance.GameData.BestScore)
+        {
+            SaveSystem.Instance.GameData.SetBestScore(_gameManager.GetCurrentScore());
+        }
+
+        SaveSystem.Instance.Save(SaveSystem.Instance.GameData);
+    }
+
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -191,6 +207,7 @@ public class GameView : MonoBehaviour
                             _isOnTurn = false;
                         }
 
+                        UpdateFieldAndScores();
                         if (IsWinCondition())
                         {
                             GameIsWon();
@@ -203,9 +220,8 @@ public class GameView : MonoBehaviour
             }
         }
         #region Arrow Controller
-        /*if (_gameIsOn)
+        /*if (_gameIsOn && Input.anyKey && _gameManager != null)
         {
-
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 _gameManager.MoveLeft();
@@ -230,6 +246,11 @@ public class GameView : MonoBehaviour
                 DoFlyingTiles();
             }
 
+            UpdateFieldAndScores();
+            if (IsWinCondition())
+            {
+                GameIsWon();
+            }
         }*/
         #endregion
     }
