@@ -219,8 +219,8 @@ public class GameView : MonoBehaviour
                     break;
             }
         }
-        #region Arrow Controller
-        /*if (_gameIsOn && Input.anyKey && _gameManager != null)
+#if UNITY_EDITOR
+        if (_gameIsOn && Input.anyKey && _gameManager != null)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -251,7 +251,7 @@ public class GameView : MonoBehaviour
             {
                 GameIsWon();
             }
-        }*/
-        #endregion
+        }
+#endif
     }
 }
