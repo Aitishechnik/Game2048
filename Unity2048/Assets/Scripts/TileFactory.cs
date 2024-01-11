@@ -31,6 +31,7 @@ public class TileFactory : MonoBehaviour
         var tileView = _tilesPool.GetTileView();
         tileView.transform.SetParent(parent);
         tileView.SetValue(tile);
+        tileView.transform.localScale = Vector3.one;
         tileView.SetTilesPool(_tilesPool);
         return tileView;
     }
@@ -41,6 +42,7 @@ public class TileFactory : MonoBehaviour
         tileView.NullifyTile();
         tileView.transform.SetParent(parent);
         tileView.SetValue(tileData);
+        tileView.transform.localScale = Vector3.one;
         tileView.SetTilesPool(_tilesPool);
         return tileView;
     }
